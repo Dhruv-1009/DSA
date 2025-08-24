@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int n=nums.size();
+        int l=-1,r=-1;
+        vector<int> ans;
+
+        //o(n)
+        // for(int i=0;i<n;i++)
+        // {
+        //     if(nums[i]==target){
+        //         if(l==-1) l=i;
+        //         r=i;
+        //     }
+        // }
+        // ans.push_back(l);
+        // ans.push_back(r);
+        // return ans;
+
+
+        //o(log(n))
+
+        int lowerbound=lower_bound(nums.begin(),nums.end(),target)-nums.begin();
+        if(lowerbound==n||nums[lowerbound]!=target)
+        {
+            ans.push_back(-1);
+            ans.push_back(-1);
+            return ans;
+            
+        }
+        int upperbound=upper_bound(nums.begin(),nums.end(),target)-nums.begin();
+
+        ans.push_back(lowerbound);
+        ans.push_back(upperbound-1);
+        return ans;
+    }
+};
