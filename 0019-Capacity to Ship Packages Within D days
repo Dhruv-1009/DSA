@@ -1,0 +1,38 @@
+class Solution {
+private:
+    // Check if we can ship all packages within 'days' given capacity 'cap'
+    bool canShip(vector<int>& weights, int days, int cap) {
+        int d = 1;      // current day
+        int total = 0;  // current load
+
+        for (int w : weights) {
+            if (w > cap) return false; // single weight exceeds capacity
+            if (total + w <= cap) {
+                total += w;
+            } else {
+                total = w;
+                d++; // start next day
+            }
+        }
+
+        return d <= days;
+    }
+
+public:
+    int shipWithinDays(vector<int>& weights, int days) {
+        int left = *max_element(weights.begin(), weights.end()); // minimum capacity
+        int right = accumulate(weights.begin(), weights.end(), 0); // maximum capacity
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+
+            if (canShip(weights, days, mid)) {
+                right = mid; // try smaller capacity
+            } else {
+                left = mid + 1; // need larger capacity
+            }
+        }
+
+        return left;
+    }
+};
