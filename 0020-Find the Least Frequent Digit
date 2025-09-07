@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int getLeastFrequentDigit(int n) {
+        int t=n;
+        vector<int> vec;
+        int ans=INT_MAX,freq=INT_MAX;
+        map<int,int> mpp;
+        while(t!=0)
+            {
+                int rem=t%10;
+                vec.push_back(rem);
+                t=t/10;
+            }
+        for(int i=0;i<vec.size();i++)
+            {
+                mpp[vec[i]]++;
+            }
+        for(auto& val:mpp)
+            {
+                if(val.second<freq)
+                {
+                    freq=val.second;
+                }
+            }
+        for(auto&val:mpp)
+            {
+                if(val.second==freq)
+                {
+                    ans=min(val.first,ans);
+                }
+            }
+        return ans;
+    }
+};
