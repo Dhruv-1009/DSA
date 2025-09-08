@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        map<char,char> mpp;
+
+        int n=s.size();
+        int m=t.size();
+
+        int i=0,j=0;
+        while(i<n&&j<m)
+        {
+            auto it=mpp.find(s[i]);
+            if(it==mpp.end())
+            {
+                for(auto&val:mpp)
+                {
+                    if(val.second==t[j])
+                    return false;
+                }
+                mpp.insert({s[i],t[j]});
+            }
+            else{
+                if(it->second!=t[j])
+                return false;
+            }
+            i++;
+            j++;
+
+        }
+        return true;
+        
+    }
+};
